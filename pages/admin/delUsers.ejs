@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users</title>
+	<link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</head>
+<body>   
+<!--Nav Bar-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-4" style="background-color: #36304a; padding-bottom: 0;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-">
+                <a class="navbar-brand text-white"><h1 class="navbrand">R&R INVENTORY SYSTEM</h1></a>
+            </div>
+            <div class="col-">
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav nav-tabs mr-auto">
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/history"><h4>Order History</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/stocks"><h4>Stocks</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/receive"><h4>Receive</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="/admin/users"><h4>Users</h4></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-white">
+                Logged in as: <span style="color: aqua;" id="user"><% if(user.isAdmin === 1){ %>
+                    ADMIN <% } else { %> CASHIER 
+                    <% } %></span>
+                <button class="button btn-primary"><a href="/logout" class="text-white" style="text-decoration: none;">Logout</a></button>
+            </h5>
+        </div>
+    </div>
+</nav>
+<!--Title-->
+<div class="container pb-5 text-center fw-bolder"style="font-size: 3rem;">Delete a User</div>
+<% if (message.length > 0) { %>
+    <div class="alert alert-danger" style="width: 20rem;">
+        <span class="fs-5 fw-bold">
+        <%= message %>
+    </span>
+    </div>
+<% } %>
+                <form method="post" action="/delUsers/del-data">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-auto py-2">
+                            <label for="adminID" style="font-weight: bolder; font-size: 1.3rem;">Admin ID:</label>
+                            <input type="number" id="adminID" style="width: 5rem; font-weight: bolder; font-size: 1.3rem;" name="adminID">
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center py-2">
+                        <div class="col-md-auto">
+                            <button type="submit" class="btn btn-danger">
+                                &ensp;&ensp;&ensp;DELETE&ensp;&ensp;&ensp;
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="table-responsive" style="padding-left: 15rem; padding-right: 15rem;">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="thead-color">
+                          <tr>
+                            <th style="width: 8rem; text-align: center;">ID</th>
+                            <th scope="col">Email</th>
+                            <th style="width: 8rem; ">Admin</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% data.forEach(items =>{ %>
+                                <tr>
+                                    <th scope="row" style="text-align: center;"><%= items.id %></th>
+                                    <td><%= items.email %></td>
+                                    <td>
+                                        <% if(items.isAdmin === 1){ %>
+                                            Yes <%} else {%> No 
+                                        <% } %>
+                                    </td>
+                                  </tr>
+                            <% }) %>
+                        </tbody>
+                      </table>
+                    </div>
+                
+                
+                
+                <!--footer-->
+                <footer>
+                    <div class="page-footer col-sm-12" style="margin-top: 10rem;">
+                       <div class="container">
+                          <hr class="rgba-white-light" style="margin: 0 15%;">
+                          <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+                          </div>
+                          <!-- Copyright -->
+                          <div class="footer-copyright text-center py-1">© 2021 R&R System. All Rights Reserved</div>
+                       </div>
+                    </div>
+                 </footer>
+                </body>	
+                </html>

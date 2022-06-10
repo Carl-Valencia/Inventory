@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <title>Receive</title>
+</head>
+<body>
+<!--Navbar Starts-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-4" style="background-color: #36304a; padding-bottom: 0;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-">
+                <a class="navbar-brand text-white"><h1 class="navbrand">R&R INVENTORY SYSTEM</h1></a>
+            </div>
+            <div class="col-">
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav nav-tabs mr-auto">
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/history"><h4>Order History</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/stocks"><h4>Stocks</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="/admin/receive"><h4>Receive</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/users"><h4>Users</h4></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-white">
+                Logged in as: <span style="color: aqua;" id="user"><% if(user.isAdmin === 1){ %>
+                    ADMIN <% } else { %> CASHIER 
+                    <% } %></span>
+                <button class="button btn-primary"><a href="/logout" class="text-white" style="text-decoration: none;">Logout</a></button>
+            </h5>
+        </div>
+    </div>
+</nav>
+<!--Navbar ends-->
+<!--Content Starts-->
+<div class="d-flex py-4" style="margin-left: 5rem;">
+        <h1 style="font-size: 3.5rem;">RECEIVE PRODUCTS &nbsp</h1> 
+        <% if (message.length > 0) { %>
+            <div class="alert alert-success" style="width: 20rem;">
+                <span class="fs-5 fw-bold">
+                <%= message %>
+            </span>
+            </div>
+        <% } %>
+</div>
+<form action="/receive/filter" method="post">
+<div class="container-fluid justify-content-start pb-2">
+    <div class="row px-margin fs-5">
+        <div class="col-2">
+            <input type="date" class="fw-bold" id="date" name="date" placeholder="yyyy/mm/dd">
+        </div>
+        <div class="col-1">
+            <button type="submit" class="btn btn-info text-nowrap text-white fw-bold">Filter</button>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col mx-1 px-1" style="flex: 0 0 0;" >
+            <button type="submit" formaction="/receive/add" class="text-white no-underline fw-bold btn btn-success px-2 text-nowrap" style="width: 5rem;">Add</a>
+        </div>
+        <div class="col mx-1 px-1" style="flex: 0 0 0;" >
+            <button type="submit" formaction="/receive/edit" class="text-white no-underline fw-bold btn btn-primary px-2 text-nowrap" style="width: 5rem;">Edit</a>
+        </div>
+    </div>
+</div>
+</form>
+<div class="d-flex justify-content-center">
+    <% if (fltrdate.length > 0) { %>
+    <div class="alert" style="width: auto;">
+        <h2 class="fw-bold text-decoration-underline text-nowrap">Date: <%= fltrdate %></h2>
+    </div>
+    <% } %>
+</div>
+<div class="table-responsive px-margin">
+    <table class="table table-bordered table-hover table-striped">
+        <thead class=" blackB">
+          <tr>
+            <th style="width:12rem;" class="text-center fs-5">Product Code</th>
+            <th scope="col" class="text-center fs-5">Product Name</th>
+            <th style="width: 5rem;" class="text-center fs-5 text-nowrap">Unit</th>
+            <th style="width: 5rem;" class="text-center fs-5 text-nowrap">Unit Price</th>
+            <th style="width: 8rem;" class="text-center fs-5">Quantity</th>
+            <th style="width:12rem;" class="text-center fs-5">Supplier</th>
+            <th style="width:10rem;" class="text-center fs-5">Time Received</th>
+          </tr>
+        </thead>
+        <tbody class="blackB">
+            <% data.forEach(items =>{ %>
+                <tr>
+                    <th style="width:12rem;" class="text-center fs-5"><%= items.productCode %></th>
+                    <td scope="col" class="text-center fs-5"><%= items.productName %></td>
+                    <td style="width: 5rem;" class="text-center fs-5 text-nowrap"><%= items.unit %></td>
+                    <td style="width: 5rem;" class="text-center fs-5 text-nowrap"><%= items.unitPrice %></td>
+                    <td style="width: 8rem;" class="text-center fs-5"><%= items.quantity %></td>
+                    <td style="width:12rem;" class="text-center fs-5"><%= items.supplier %></td>
+                    <td style="width:10rem;" class="text-center fs-5"><%= items.date.toLocaleTimeString() %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<!--Content Ends-->
+<footer>
+	<div class="page-footer col-sm-12" style="margin-top: 10rem;">
+	   <div class="container">
+		  <hr class="rgba-white-light" style="margin: 0 15%;">
+		  <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+		  </div>
+		  <!-- Copyright -->
+		  <div class="footer-copyright text-center py-1">
+        © 2022 R&R System. All Rights Reserved
+      </div>
+	   </div>
+	</div>
+ </footer>
+</body>
+<script src="../js/currentdate.js"></script>
+</html>

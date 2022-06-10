@@ -1,0 +1,99 @@
+body{
+    padding-top: 12rem;
+}
+.branding{
+    font-family:'Times New Roman';
+    color: white;
+    font-weight: bold;
+}
+
+.navbrand{
+    font-size: 3rem;
+}
+
+navlist{
+    font-weight: bolder;
+}
+
+div form div a h5:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.longinput{
+    width: 25rem;
+}
+
+.nav-tabs .nav-item .nav-link {
+    background-color: #36304a;
+    color: #FFF;
+}
+  
+.nav-tabs .nav-item .nav-link.active h4 {
+    color: #36304a;
+    font-weight:bold;
+}
+
+.container-fluid-even{
+  width: auto;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: 5rem;
+  margin-left: 5rem;
+}
+
+input::-webkit-calendar-picker-indicator {
+    color: #36304a;
+    opacity: 100;
+ }
+
+ .smallrem{
+    width: 6rem;
+}
+.bigrem{
+    width: 17rem;
+}
+
+.px-margin{
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+.pcode-input{
+    width: 15rem;
+}
+.pname-input{
+    width: 44rem;
+}
+.punit-input{
+    width: 9rem;
+}
+.pqty-input{
+    width: 9rem;
+}
+.pprice-input{
+    width: 12rem;
+}
+.w-80{
+    width: 94.8% !important;
+}
+.no-underline{
+    text-decoration: none;
+}
+.bigGutter{
+    --bs-gutter-x: 5rem;
+}
+
+input:focus {
+    border: 2.5px solid;
+}
+
+input {
+    border: 2px solid #000;
+}
+* {
+    box-sizing: border-box;
+  }
+
+.blackB {
+    border-color: #000;
+}

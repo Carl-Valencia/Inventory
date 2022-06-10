@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/searchform.js"></script>
+    <script src="../js/checkbox.js"></script>
+    <script src="../js/price.js"></script>
+    <script src="../js/add.js"></script>
+    <title>Order Form</title>
+</head>
+<body>
+<!--Navbar Starts-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-4" style="background-color: #36304a; padding-bottom: 0;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-">
+                <a class="navbar-brand text-white"><h1 class="navbrand">R&R INVENTORY SYSTEM</h1></a>
+            </div>
+            <div class="col-">
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav nav-tabs mr-auto">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="/admin/history"><h4>Order History</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/stocks"><h4>Stocks</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/receive"><h4>Receive</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/users"><h4>Users</h4></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-white">
+                Logged in as: <span style="color: aqua;" id="user"><% if(user.isAdmin === 1){ %>
+                    ADMIN <% } else { %> CASHIER 
+                    <% } %></span>
+                <button class="button btn-primary"><a href="/" class="text-white" style="text-decoration: none;">Logout</a></button>
+            </h5>
+        </div>
+    </div>
+</nav>
+<!--Navbar ends-->
+<!--Content starts-->
+<div class="container py-4" style="margin-left: 5rem;">
+    <h1 style="font-size: 3.5rem;">ORDER FORM</h1>
+</div>
+<form action="/history/form/confirm" method="POST">
+    <div class="container-fluid-even justify-content-between py-4 mb-3">
+        <div class="row">
+            <div class="col fw-bold fs-5 text-nowrap">
+                <label for="Oby">Ordered by:</label>
+                <input type="text" list="customerList" id="Oby" name="orderedBy" class="fw-bold" value="">
+                <datalist id="customerList">
+                    <% data2.forEach(items =>{ %>
+                        <option value="<%=items.customer%>"></option>
+                    <% }) %>
+                </datalist>
+            </div>
+            <div class="col-4 fw-bold fs-5 text-nowrap">
+                <label for="OrderDate">Date:</label>
+                <input type="date" id="orderDate" name="orderDate">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid-even py-4">
+        <div class="row">
+                <label for="inStocksList" class="col col-form-label text-nowrap fw-bold fs-5" style="flex: 0 0 0;">Search:</label>
+            <div class="col">
+                <input type="text" class="fs-5" list="orderIdOptions" id="inStocksList" placeholder="Find Name or Selected items" style="width: 20rem;" onkeyup="search()">
+            </div>
+        </div>
+    </div>
+<fieldset class="fieldset-proper pt-3">
+    <div class="table-responsive px-margin">
+        <table class="table table-bordered w-auto" id="orderIdList">
+            <thead class="blackB">
+              <tr>
+                <th style="width: 15rem;" class="fs-5 text-center">Product Code</th>
+                <th style="width: 44rem;" class="fs-5 text-center">Product Name</th>
+                <th style="width: 7rem;" class="fs-5 text-center">Unit</th>
+                <th style="width: 9rem;" class="fs-5 text-center">Unit Price</th>
+                <th style="width: 9rem;" class="fs-5 text-center">Quantity</th>
+                <th style="width: 12rem;" class="fs-5 text-center">Price</th>
+              </tr>
+            </thead>
+            <tbody id="stocksListBody" class="blackB">
+                <% data.forEach(items =>{ %>
+                <tr id="<%=items.productCode %>">
+                    <td class="pcode-input">
+                        <input type="checkbox" value="<%=items.productCode %>" class="ch" name="pcode" onclick="enableQuantity('<%=items.productCode %>');"> 
+                        <%=items.productCode %>
+                    </td>
+                    <td class="pname-input">
+                        <%=items.productName %>
+                        <span class="tag"></span>
+                    </td>
+                    <td style="width: 7rem;">
+                        <%=items.unit %>
+                    </td>
+                    <td class="punit-input">
+                        <%=items.unitPrice %>
+                    </td>
+                    <td><input type="number" class="quantity pqty-input" min="0" max="99999" name="qty" onchange="calc('<%=items.productCode %>')" disabled></td>
+                    <td class="pprice-input"><input type="number" class="partial" id="partial" style="width: 15rem;" name="price" step=".01" readonly disabled></td>  
+                    <td style="display: none;">
+                        <input type="text" class="status" name="status" value="confirmed" disabled>
+                    </td>
+                </tr>
+                <% }) %> 
+            </tbody>
+            <tr>
+                <td colspan="4" style="visibility: hidden;">
+                    Hidden filler
+                </td>
+                <td class="d-flex justify-content-end">
+                    <label for="total" class="fs-5 fw-bold"> Total: &ensp;</label>
+                </td>
+                <td id="total" class="pprice-input fs-5" onclick="totalPrice()" readonly> 
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td colspan="4" style="visibility: hidden; border: none;">
+                    Hidden filler
+                </td>
+                <td style="border: none;">
+                    <button class="btn btn-primary fw-bold fs-5" type="submit" style="width: 9rem;">CONFIRM</button>
+                </td>
+                <td style="border: none;">
+                    <button class="btn btn-info fw-bold fs-5 text-white text-nowrap" type="submit" formaction="form/confirmPrint" style="width: 15rem;">CONFIRM AND PRINT</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</fieldset>
+</form>
+
+
+<!--Content ends-->
+</body>
+</html>

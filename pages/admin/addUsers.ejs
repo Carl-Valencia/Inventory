@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users</title>
+	<link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</head>
+<body>   
+<!--Nav Bar-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-4" style="background-color: #36304a; padding-bottom: 0;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-">
+                <a class="navbar-brand text-white"><h1 class="navbrand">R&R INVENTORY SYSTEM</h1></a>
+            </div>
+            <div class="col-">
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav nav-tabs mr-auto">
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/history"><h4>Order History</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/stocks"><h4>Stocks</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/receive"><h4>Receive</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="/admin/users"><h4>Users</h4></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-white">
+                Logged in as: <span style="color: aqua;" id="user"><% if(user.isAdmin === 1){ %>
+                    ADMIN <% } else { %> CASHIER 
+                    <% } %></span>
+                <button class="button btn-primary"><a href="/logout" class="text-white" style="text-decoration: none;">Logout</a></button>
+            </h5>
+        </div>
+    </div>
+</nav>
+<!--Title-->
+<div class="container pb-5 text-center fw-bolder"style="font-size: 3rem;">Add a User</div>
+<% if (message.length > 0) { %>
+    <div class="alert alert-danger" style="width: 20rem;">
+        <span class="fs-5 fw-bold">
+        <%= message %>
+    </span>
+    </div>
+<% } %>
+<form method="post" action="/addUsers/send-data">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto py-2">
+                <label for="userInput" class="fw-bolder fs-3">Email:</label>
+                <input type="text" id="userInput" class="fw-bolder fs-3" name="email"  autocomplete="off">
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto py-2">
+                <label for="passInput" class="fw-bolder fs-3">Password:</label>
+                <input type="text" id="passInput" class="fw-bolder fs-3" name="password">
+            </div>
+        </div> 
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto py-2">
+                <label for="isAdmin" class="fw-bolder fs-3">Admin? </label>
+                <input type="checkbox" style="width: 1.5rem; height: 1.5rem;" id="isAdmin" class="fw-bolder fs-3" name="isAdmin" value="1">
+                <script>let y = document.getElementbyId('isAdmin'); if (y.checked==false){
+                    document.getElementbyId('isAdmin').value = 0; }   
+                </script>
+            </div>
+        </div>      
+    <div class="d-flex justify-content-center pt-3">
+        <button type="submit" class="btn btn-success text-white fw-bold">
+            &ensp;&ensp;&ensp;+ ADD&ensp;&ensp;&ensp;
+        </button>
+    </div>
+</form>
+
+
+<!--footer-->
+<footer>
+	<div class="page-footer col-sm-12" style="margin-top: 10rem;">
+	   <div class="container">
+		  <hr class="rgba-white-light" style="margin: 0 15%;">
+		  <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+		  </div>
+		  <!-- Copyright -->
+		  <div class="footer-copyright text-center py-1">
+        © 2022 R&R System. All Rights Reserved
+      </div>
+	   </div>
+	</div>
+ </footer>
+</body>	
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/addReceive.js"></script>
+    <title>Receive</title>
+</head>
+<body>
+<!--Navbar Starts-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-4" style="background-color: #36304a; padding-bottom: 0;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-">
+                <a class="navbar-brand text-white"><h1 class="navbrand">R&R INVENTORY SYSTEM</h1></a>
+            </div>
+            <div class="col-">
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav nav-tabs mr-auto">
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/history"><h4>Order History</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/stocks"><h4>Stocks</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="/admin/receive"><h4>Receive</h4></a>
+                        </li>
+                        <li class="nav-item px-5">
+                            <a class="nav-link" href="/admin/users"><h4>Users</h4></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5 class="text-white">
+                Logged in as: <span style="color: aqua;" id="user"><% if(user.isAdmin === 1){ %>
+                    ADMIN <% } else { %> CASHIER 
+                    <% } %></span>
+                <button class="button btn-primary"><a href="/logout" class="text-white" style="text-decoration: none;">Logout</a></button>
+            </h5>
+        </div>
+    </div>
+</nav>
+<!--Navbar ends-->
+<!--Content starts-->
+<div class="container py-4" style="margin-left: 5rem;">
+    <h1 style="font-size: 3.5rem;">RECEIVE PRODUCTS</h1>
+</div>
+</form>
+<div class="d-flex justify-content-center">
+    <% if (fltrdate.length > 0) { %>
+    <div class="alert" style="width: auto;">
+        <h2 class="fw-bold text-decoration-underline text-nowrap">Date: <%= fltrdate %></h2>
+    </div>
+    <% } %>
+</div>
+<!--FORM STARTS-->
+<form method="post">
+<fieldset class="fieldset-proper pt-3">
+    <div class="table-responsive px-margin">
+        <table class="table table-borderless w-auto" id="orderIdList">
+            <thead class="">
+              <tr>
+                <th style="width: 15rem;" class="fs-5 text-center">Product Code</th>
+                <th style="width: 44rem;" class="fs-5 text-center">Product Name</th>
+                <th style="width: 5rem;" class="fs-5 text-center">Unit</th>
+                <th style="width: 9rem;" class="fs-5 text-center">Unit Price</th>
+                <th style="width: 9rem;" class="fs-5 text-center">Quantity</th>
+                <th style="width: 15rem;" class="fs-5 text-center">Supplier</th>
+              </tr>
+            </thead>
+            <tbody id="field">
+                <tr>
+                    <td> 
+                        <input type="text" list="pcode" class="pcode-input fs-5" name="code"> 
+                    </td>
+                    <td>
+                        <input type="text" list="pname" class="pname-input fs-5" name="product">
+                    </td>
+                    <td>
+                        <input type="text" list="unit" class="punit-input fs-5" style="width: 5rem;" name="ut">
+                        <datalist id="unit">
+                            <option value="pc."></option>
+                            <option value="case"></option>
+                            <option value="box"></option>
+                        </datalist>
+                    </td>
+                    <td>
+                        <input type="number" step=".01" list="unitPrice" class="punit-input fs-5" name="unit">
+                    </td>
+                    <td>
+                        <input type="number" class="fs-5" style="width: 12rem;" name="quantity">
+                    </td>
+                    <td>
+                        <input type="text" list="supp" class="pcode-input fs-5" name="supplier"> 
+                    </td>
+                </tr>
+            </tbody>
+            <tr>
+                <td>
+                    <a href="#" id="addproduct" onclick="addFields()" class="ml-4 fs-5 text-info">+ Add a product</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="visibility: hidden;">
+                    Hidden filler
+                </td>
+                <td>
+                    <button class="btn btn-success fw-bold fs-5" type="submit" formaction="/receive/add/save" style="width: 15rem;">SAVE</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</fieldset>
+</form>
+
+
+<!--Content ends-->
+</body>
+<script src="../js/currentdate.js"></script>
+</html>

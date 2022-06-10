@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <title>R&R Inventory System</title>
+</head>
+<body style="padding-top: 10rem;">
+  <div class="container shadow-lg d-flex align-content-center justify-content-center flex-wrap" style="background-color: #36304a; border-radius: 20px; width: 35rem; height: 30rem;">
+    <h1 class="text-center pt-5 pb-4 text-white" style="font-size: 2.7rem;">Reset your password</h1>
+    <h5 class="text-center pb-2 text-white">We will send you an email to reset your password.</h5>
+      <form action="/auth" method="POST">
+        <div class="d-flex justify-content-center py-3">
+          <input class="form-control-lg longinput" type="email" id="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="d-flex py-2 pb-5 pt-3">
+          <button type="submit" class="btn btn-light d-flex align-items-center" style=" font-size: 1.5rem; height: 2.5rem;">Submit</button>
+          <h5 class="text-white d-flex align-items-center">&nbsp&nbsp or </h5>
+          <a href="/login" class="btn btn-link" style="text-decoration: none;"><h3 class="text-white">Cancel</h3></a>
+        </div>
+      </form>
+  </div>
+<!--footer-->
+<footer>
+	<div class="page-footer col-sm-12" style="margin-top: 10rem;">
+	   <div class="container">
+		  <hr class="rgba-white-light" style="margin: 0 15%;">
+		  <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+		  </div>
+		  <!-- Copyright -->
+		  <div class="footer-copyright text-center py-1">
+        © 2022 R&R System. All Rights Reserved
+      </div>
+	   </div>
+	</div>
+ </footer>
+</body>	
+</html>
